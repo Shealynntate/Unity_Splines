@@ -40,7 +40,7 @@ public class Spline : MonoBehaviour
 	{
 		if (curves == null)
 		{
-			Debug.Log("curves list was null");
+			//Debug.Log("curves list was null");
 			curves = new List<BezierCurve>();
 		}
 

@@ -21,8 +21,10 @@ public static class UTIL
 	static string command = @"^\s*{0}\s*([0-9e.\+\-,\s]+)\s*(.*)";
 	static string commandZ = @"^\s*{0}\s*([0-9e.\+\-,\s]+)\s*[Zz]\s*(.*)";
 
-	public static Regex widthReg = new Regex(@"width\s*=\s*""\s*([0-9]+)px\s*""");
-	public static Regex heightReg = new Regex(@"height\s*=\s*""\s*([0-9]+)px\s*""");
+	public static Regex widthReg = new Regex(@"width\s*=\s*""\s*([0-9.]+)px\s*""");
+	public static Regex heightReg = new Regex(@"height\s*=\s*""\s*([0-9.]+)px\s*""");
+
+	public static Regex scaleReg = new Regex(@"scale\(([0-9.\-\+\s]+),([0-9.\-\+\s]+)\)");
 
 	public static Regex moveToAbs = new Regex(string.Format(command, @"M"));
 	public static Regex moveToRel = new Regex(string.Format(command, @"m"));

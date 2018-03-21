@@ -23,5 +23,4 @@ public class BezierCurveEditor : Editor
 	{
 		// TODO: Can send deselected message here if needed
 	}
-	
 }

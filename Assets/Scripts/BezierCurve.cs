@@ -8,14 +8,10 @@ using UnityEditor;
 public class BezierCurve : MonoBehaviour 
 {
 	public GameObject GuideLinePrefab;
-	public GameObject SubDivisionPrefab;
-	public Material GuideLineMaterial;
-	public Material MeshMaterial;
 	public Transform p0;
 	public Transform p1;
 	public Transform p2;
 	public Transform p3;
-	public Transform SubDivisions;
 	public Transform GuideLine;
 
 	[SerializeField]
@@ -37,22 +33,6 @@ public class BezierCurve : MonoBehaviour
 		set
 		{
 			_guideLines = value;
-		}
-	}
-	[SerializeField]
-	private List<MeshRenderer> _subDivisions;
-	List<MeshRenderer> subDivisions
-	{
-		get
-		{
-			if (_subDivisions == null)
-				_subDivisions = new List<MeshRenderer>();
-
-			return _subDivisions;
-		}
-		set
-		{
-			_subDivisions = value;
 		}
 	}
 
@@ -174,24 +154,8 @@ public class BezierCurve : MonoBehaviour
 
 	void OnDestroy()
 	{
-		//Debug.Log("Calling OnDestroy now for BezierCurve");
 		Spline spline = transform.parent.GetComponent<Spline>();
 		spline.CurveDestroyed(this);
-	}
-
-	void DrawCurve()
-	{
-		float step = 1f / subDivisions.Count;
-
-		for (int i = 0; i < subDivisions.Count; i++)
-		{
-			MeshRenderer mr = subDivisions[i];
-			//TODO: This is using left-hand(?) estimation for step, should probably use average.
-			Transform transform = mr.transform;
-			mr.transform.parent.position = GetPoint(step * i);
-			mr.transform.parent.rotation = GetOrientation(step * i, Vector3.up);
-			mr.transform.parent.localScale = new Vector3(0.1f, 1f, step);
-		}
 	}
 
 	void DrawGuideLine()
@@ -242,24 +206,14 @@ public class BezierCurve : MonoBehaviour
 			g.SetSelected(false);
 	}
 
-	MeshRenderer CreateSegment()
-	{
-		GameObject segment = GameObject.Instantiate(SubDivisionPrefab);
-
-		segment.transform.SetParent(SubDivisions);
-		MeshRenderer renderer = segment.GetComponentInChildren<MeshRenderer>();
-		renderer.material = new Material(MeshMaterial);
-
-		return renderer;
-	}
-
 	GuideLine CreateGuideLineSegment()
 	{
 		GameObject segment = GameObject.Instantiate(GuideLinePrefab);
-		
+
 		segment.transform.SetParent(GuideLine);	
 		GuideLine line = segment.GetComponent<GuideLine>();
-		//renderer.material = new Material(GuideLineMaterial);
+		
+		GuideLine.hideFlags = HideFlags.HideInHierarchy;
 
 		return line;
 	}

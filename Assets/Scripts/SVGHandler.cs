@@ -11,7 +11,7 @@ public static class SVGHandler
 	// SVG state variables
 	static int widthSVG = -1;
 	static int heightSVG = -1;
-	static Vector2 scaleSVG = new Vector2(1, 1);
+	static Vector3 scaleSVG = new Vector2(1, 1);
 
 	public static void ConvertToSplines(string filePath)
 	{
@@ -48,6 +48,12 @@ public static class SVGHandler
 		while(!reader.EndOfStream)
 		{
 			line += " " + reader.ReadLine();
+
+			if (scaleSVG.x == 1 && scaleSVG.y == 1 && tryMatch(UTIL.scaleReg, line, out m))
+			{
+				scaleSVG.x = float.Parse(m.Groups[1].ToString());
+				scaleSVG.y = float.Parse(m.Groups[2].ToString());
+			}
 
 			if (widthSVG < 0 && tryMatch(UTIL.widthReg, line, out m))
 				widthSVG = int.Parse(m.Groups[1].ToString());
@@ -317,7 +323,7 @@ public static class SVGHandler
 		var result = new List<Vector3>();
 
 		for (int i = 0; i < inputs.Count; ++i)
-			result.Add(new Vector3(inputs[i], shouldInvert ? invertAbs(y) : y));
+			result.Add(new Vector3(inputs[i] * scaleSVG.x, (shouldInvert ? invertAbs(y) : y) * scaleSVG.y));
 
 		return result;
 	}
@@ -327,7 +333,7 @@ public static class SVGHandler
 		var result = new List<Vector3>();
 
 		for (int i = 0; i < inputs.Count; ++i)
-			result.Add(new Vector3(inputs[i], invertRel(y)));
+			result.Add(new Vector3(inputs[i] * scaleSVG.x, invertRel(y) * scaleSVG.y ));
 
 		return result;
 	}
@@ -337,7 +343,7 @@ public static class SVGHandler
 		var result = new List<Vector3>();
 
 		for (int i = 0; i < inputs.Count; ++i)
-			result.Add(new Vector3(x, invertAbs(inputs[i])));
+			result.Add(new Vector3(x * scaleSVG.x, invertAbs(inputs[i]) * scaleSVG.y));
 
 		return result;
 	}
@@ -347,7 +353,7 @@ public static class SVGHandler
 		var result = new List<Vector3>();
 
 		for (int i = 0; i < inputs.Count; ++i)
-			result.Add(new Vector3(x, invertRel(inputs[i])));
+			result.Add(new Vector3(x * scaleSVG.x, invertRel(inputs[i]) * scaleSVG.y));
 
 		return result;
 	}
@@ -364,7 +370,7 @@ public static class SVGHandler
 				break;
 			}
 
-			result.Add(new Vector3(inputs[i], invertAbs(inputs[i + 1])));
+			result.Add(new Vector3(inputs[i] * scaleSVG.x, invertAbs(inputs[i + 1]) * scaleSVG.y));
 		}
 
 		return result;
@@ -382,7 +388,7 @@ public static class SVGHandler
 				break;
 			}
 
-			result.Add(new Vector3(inputs[i], invertRel(inputs[i + 1])));
+			result.Add(new Vector3(inputs[i] * scaleSVG.x, invertRel(inputs[i + 1]) * scaleSVG.y));
 		}
 
 		return result;

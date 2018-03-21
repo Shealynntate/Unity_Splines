@@ -52,8 +52,6 @@ public class SplineEditor : Editor
 
 	void OnSceneGUI()
 	{
-		//TODO: I think I can remove this one with the SplineMenu call covering it
-		
 		// Mouse clicked - check for gizmo intersections
 		if (Event.current.type == EventType.mouseDown)
 		{
