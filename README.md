@@ -7,6 +7,11 @@ By simply adding an animation script to a GameObject and selecting the spline, t
 
 ![Spline Demo](https://raw.githubusercontent.com/Shealynntate/Unity_Splines/master/Images/SplineDemo1.gif)
 
+## Usage
+---
+
+To animate a GameObject, simply add the *SplineAnimation.cs* script to the object and add the spline to the public field in the inspector. You can then set the move speed and whether or not you want the object to orient itself along the path.
+
 Here's the GNU logo imported as an SVG file.
 ![GNU](https://raw.githubusercontent.com/Shealynntate/Unity_Splines/master/Images/GNU_Logo.png)
 And a floral SVG file.
