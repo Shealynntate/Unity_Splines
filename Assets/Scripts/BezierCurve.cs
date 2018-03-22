@@ -7,17 +7,37 @@ using UnityEditor;
 [System.Serializable]
 public class BezierCurve : MonoBehaviour 
 {
-	public GameObject GuideLinePrefab;
 	public Transform p0;
 	public Transform p1;
 	public Transform p2;
 	public Transform p3;
-	public Transform GuideLine;
 
 	[SerializeField]
 	BezierCurve next;
 	[SerializeField]
 	BezierCurve prev;
+
+	[SerializeField]
+	private Transform _guideLine;
+	Transform guideLine
+	{
+		get
+		{
+			if (_guideLine == null)
+			{
+				_guideLine = (new GameObject()).transform;
+				_guideLine.SetParent(transform);
+				_guideLine.hideFlags = HideFlags.HideInHierarchy;
+			}
+
+			return _guideLine;
+		}
+
+		set
+		{
+			_guideLine = value;
+		}
+	}
 
 	[SerializeField]
 	private List<GuideLine> _guideLines;
@@ -208,17 +228,16 @@ public class BezierCurve : MonoBehaviour
 
 	GuideLine CreateGuideLineSegment()
 	{
-		GameObject segment = GameObject.Instantiate(GuideLinePrefab);
+		GameObject segment = new GameObject();
 
-		segment.transform.SetParent(GuideLine);	
-		GuideLine line = segment.GetComponent<GuideLine>();
+		segment.transform.SetParent(guideLine);	
 		
-		GuideLine.hideFlags = HideFlags.HideInHierarchy;
+		GuideLine line = segment.AddComponent<GuideLine>();
 
 		return line;
 	}
 
-	// ----------------------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------
 
 	public SplineData GetData(float t)
 	{
@@ -270,7 +289,7 @@ public class BezierCurve : MonoBehaviour
 		return GetNormal(1, Vector3.up);
 	}
 
-	// ----------------------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------
 	Vector3 GetPoint(float t)
 	{
 		float alpha = 1f - t;

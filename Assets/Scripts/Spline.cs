@@ -10,9 +10,9 @@ public class Spline : MonoBehaviour
 #region Public Properties
 
 	public GameObject BezierCurvePrefab;
-	
 
 #endregion
+
 	[SerializeField]
 	GameObject addEndCurveDetector;
 	[SerializeField]
@@ -40,7 +40,6 @@ public class Spline : MonoBehaviour
 	{
 		if (curves == null)
 		{
-			//Debug.Log("curves list was null");
 			curves = new List<BezierCurve>();
 		}
 
