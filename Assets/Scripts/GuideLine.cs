@@ -62,6 +62,11 @@ public class GuideLine : MonoBehaviour
 		return end;
 	}
 
+	public float GetDistance()
+	{
+		return Vector3.Distance(start, end);
+	}
+
 	public void SetSelected(bool flag)
 	{
 		isSelected = flag;

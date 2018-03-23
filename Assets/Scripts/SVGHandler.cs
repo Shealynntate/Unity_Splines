@@ -217,35 +217,27 @@ public static class SVGHandler
 			}
 			else if (tryMatch(UTIL.quadAbs, ref path, out coords))
 			{
-				// TODO
-				Debug.Log("Quad Absolute command.");
-				//var vectors = floatXYToRelVectors(coords);
+				var vectors = floatXYToAbsVectors(coords);
 
-				//currentPoint = spline.RelativeSmoothCurve(vectors, currentPoint);
+				currentPoint = spline.AbsoluteQuad(vectors, currentPoint);
 			}
 			else if (tryMatch(UTIL.quadRel, ref path, out coords))
 			{
-				// TODO
-				Debug.Log("Quad Relative command.");
-				//var vectors = floatXYToRelVectors(coords);
+				var vectors = floatXYToRelVectors(coords);
 
-				//currentPoint = spline.RelativeSmoothCurve(vectors, currentPoint);
+				currentPoint = spline.RelativeQuad(vectors, currentPoint);
 			}
 			else if (tryMatch(UTIL.smoothQuadAbs, ref path, out coords))
 			{
-				// TODO
-				Debug.Log("Smooth Quad Absolute command.");
-				//var vectors = floatXYToRelVectors(coords);
+				var vectors = floatXYToAbsVectors(coords);
 
-				//currentPoint = spline.RelativeSmoothCurve(vectors, currentPoint);
+				currentPoint = spline.AbsoluteSmoothQuad(vectors, currentPoint);
 			}
 			else if (tryMatch(UTIL.smoothQuadRel, ref path, out coords))
 			{
-				// TODO
-				Debug.Log("Smooth Quad Relative command.");
-				//var vectors = floatXYToRelVectors(coords);
+				var vectors = floatXYToRelVectors(coords);
 
-				//currentPoint = spline.RelativeSmoothCurve(vectors, currentPoint);
+				currentPoint = spline.RelativeSmoothQuad(vectors, currentPoint);
 			}
 			else if (tryMatch(UTIL.arcToAbs, ref path, out coords))
 			{

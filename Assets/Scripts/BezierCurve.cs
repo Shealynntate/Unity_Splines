@@ -56,6 +56,9 @@ public class BezierCurve : MonoBehaviour
 		}
 	}
 
+	[SerializeField]
+	float curveLength;
+
 	public void Init(int numSubDivisions, Vector3 origin, bool atStart, Transform parent)
 	{
 		transform.SetParent(parent);
@@ -140,6 +143,9 @@ public class BezierCurve : MonoBehaviour
 		{
 			prev.UpdateEndPoint(p0.position);
 		}
+
+		UpdateCurveLength();
+		GetComponentInParent<Spline>().UpdateSplineLength();
 	}
 
 	public void UpdateNumberSubDivisions(int num)
@@ -160,16 +166,34 @@ public class BezierCurve : MonoBehaviour
 
 			DrawGuideLine();
 		}
+
+		UpdateCurveLength();
+	}
+
+	void UpdateCurveLength()
+	{
+		curveLength = 0;
+
+		foreach(var line in guideLines)
+		{
+			curveLength += line.GetDistance();
+		}
 	}
 
 	void UpdateStartPoint(Vector3 position)
 	{
 		p0.position = position;
+
+		UpdateCurveLength();
+		GetComponentInParent<Spline>().UpdateSplineLength();
 	}
 
 	void UpdateEndPoint(Vector3 position)
 	{
 		p3.position = position;
+
+		UpdateCurveLength();
+		GetComponentInParent<Spline>().UpdateSplineLength();
 	}
 
 	void OnDestroy()
@@ -239,12 +263,19 @@ public class BezierCurve : MonoBehaviour
 
 	// -----------------------------------------------------------------------------------
 
-	public SplineData GetData(float t)
+	public float GetLength()
 	{
+		return curveLength;
+	}
+
+	public SplineData GetData(float d)
+	{
+		float alpha = d / curveLength;
+		
 		SplineData data = new SplineData();
-		data.Position = GetPoint(t);
-		data.Tangent = GetTangent(t);
-		data.Normal = GetNormal(t, Vector3.up);
+		data.Position = GetPoint(alpha);
+		data.Tangent = GetTangent(alpha);
+		data.Normal = GetNormal(alpha, Vector3.up);
 		
 		return data;
 	}

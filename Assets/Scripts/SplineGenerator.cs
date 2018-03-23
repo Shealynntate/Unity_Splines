@@ -214,6 +214,56 @@ public class SplineGenerator : MonoBehaviour
 		return endPoint;
 	}
 
+	public Vector3 AbsoluteQuad(List<Vector3> vectors, Vector3 currentPoint)
+	{
+		for (int i = 0; i < vectors.Count; i += 2)
+		{
+			if (i + 1 >= vectors.Count)
+			{
+				Debug.Log("Error: Bad number of inputs to Absolute Quadratic command.");
+				break;
+			}
+
+			spline.AddAbsolutePoint(vectors[i], vectors[i], vectors[i + 1]);
+		}
+
+		return vectors[vectors.Count - 1];
+	}
+
+	public Vector3 RelativeQuad(List<Vector3> vectors, Vector3 currentPoint)
+	{
+		for (int i = 0; i < vectors.Count; i += 2)
+		{
+			if (i + 1 >= vectors.Count)
+			{
+				Debug.Log("Error: Bad number of inputs to Absolute Quadratic command.");
+				break;
+			}
+
+			spline.AddRelativePoint(vectors[i], vectors[i], vectors[i + 1]);
+		}
+
+		return vectors[vectors.Count - 1] + currentPoint;
+	}
+
+	public Vector3 AbsoluteSmoothQuad(List<Vector3> vectors, Vector3 currentPoint)
+	{
+		// TODO: When previous command isn't Q or T, control point assumed to be point
+		for (int i = 0; i < vectors.Count; ++i)
+			spline.AddAbsoluteSmoothPoint(vectors[i]);
+
+		return vectors[vectors.Count - 1];
+	}
+
+	public Vector3 RelativeSmoothQuad(List<Vector3> vectors, Vector3 currentPoint)
+	{
+		// TODO: When previous command isn't Q or T, control point assumed to be point
+		for (int i = 0; i < vectors.Count; ++i)
+			spline.AddRelativeSmoothPoint(vectors[i]);
+
+		return vectors[vectors.Count - 1] + currentPoint;
+	}
+
 	public void ClosePath()
 	{
 		spline.ClosePath();

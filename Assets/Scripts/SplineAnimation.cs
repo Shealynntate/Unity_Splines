@@ -4,25 +4,22 @@ using UnityEngine;
 
 public class SplineAnimation : MonoBehaviour 
 {
-	public float Speed = 0.25f;
+	public float Speed = 10.0f;
 	public bool OrientToPath = true;
-
 	public Spline Spline;
-	float time;
+
+	double distanceTraveled;
 
 	void Start() 
 	{
-		time = 0;	
+		distanceTraveled = 0;	
 	}
 	
 	void Update() 
 	{
-		time += Time.deltaTime * Speed;
+		distanceTraveled += Time.deltaTime * Speed;
 
-		if (time > 1)
-			time = 0;
-
-		SplineData data = Spline.NextDataPoint(time);
+		SplineData data = Spline.NextDataPoint(distanceTraveled);
 
 		transform.position = data.Position;
 		

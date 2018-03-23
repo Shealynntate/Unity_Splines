@@ -55,7 +55,7 @@ public class SplineEditor : Editor
 		// Mouse clicked - check for gizmo intersections
 		if (Event.current.type == EventType.mouseDown)
 		{
-			spline.RaycastGizmos();
+			spline.GetComponent<SplineGizmos>().RaycastGizmos();
 		}
 	}
 }
