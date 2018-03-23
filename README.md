@@ -17,6 +17,10 @@ By attaching a particle system to the object, you can create arbitrary particle 
 ![Disney](https://raw.githubusercontent.com/Shealynntate/Unity_Splines/master/Images/DisneySpline.gif)
 
 <br>
+Using the *Spline Editor* Menu you can use any SVG file that's imported into your project.
+
+![Spline Editor Demo 1](https://raw.githubusercontent.com/Shealynntate/Unity_Splines/master/Images/SplineEditorDemo1.png)
+![Spline Editor Demo 2](https://raw.githubusercontent.com/Shealynntate/Unity_Splines/master/Images/SplineEditorDemo2.png)
 
 Here are a few more examples of paths imported from SVG files.
 ![GNU](https://raw.githubusercontent.com/Shealynntate/Unity_Splines/master/Images/GNU_Logo.png)
