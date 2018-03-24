@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 [ExecuteInEditMode]
 [System.Serializable]
@@ -9,7 +8,18 @@ public class Spline : MonoBehaviour
 {
 #region Public Properties
 
-	public GameObject BezierCurvePrefab;
+	[SerializeField]
+    private GameObject _curvePrefab;
+    GameObject curvePrefab
+    {
+        get
+        {
+            if (_curvePrefab == null)
+                _curvePrefab = (GameObject)Resources.Load("Prefabs/BezierCurve", typeof(GameObject));
+
+            return _curvePrefab;
+        }
+    }
 
 #endregion
 
@@ -50,7 +60,7 @@ public class Spline : MonoBehaviour
 	// Called when user clicks GUI Add Gizmo
 	public void AddPoint(bool atStart)
 	{
-		BezierCurve curve = GameObject.Instantiate(BezierCurvePrefab).GetComponent<BezierCurve>();
+		BezierCurve curve = GameObject.Instantiate(curvePrefab).GetComponent<BezierCurve>();
 		
 		int numCurves = curves.Count;
 
@@ -90,7 +100,7 @@ public class Spline : MonoBehaviour
 
 	public void AddAbsoluteSmoothPoint(Vector3 end)
 	{
-		BezierCurve curve = GameObject.Instantiate(BezierCurvePrefab).GetComponent<BezierCurve>();
+		BezierCurve curve = GameObject.Instantiate(curvePrefab).GetComponent<BezierCurve>();
 		
 		int numCurves = curves.Count;
 
@@ -117,7 +127,7 @@ public class Spline : MonoBehaviour
 
 	public void AddAbsolutePoint(Vector3 end)
 	{
-		BezierCurve curve = GameObject.Instantiate(BezierCurvePrefab).GetComponent<BezierCurve>();
+		BezierCurve curve = GameObject.Instantiate(curvePrefab).GetComponent<BezierCurve>();
 		
 		int numCurves = curves.Count;
 
@@ -142,7 +152,7 @@ public class Spline : MonoBehaviour
 
 	public void AddAbsolutePoint(Vector3 control1, Vector3 control2, Vector3 end)
 	{
-		BezierCurve curve = GameObject.Instantiate(BezierCurvePrefab).GetComponent<BezierCurve>();
+		BezierCurve curve = GameObject.Instantiate(curvePrefab).GetComponent<BezierCurve>();
 		
 		int numCurves = curves.Count;
 
@@ -168,7 +178,7 @@ public class Spline : MonoBehaviour
 	// For Smooth Curve command
 	public void AddAbsolutePoint(Vector3 control2, Vector3 end)
 	{
-		BezierCurve curve = GameObject.Instantiate(BezierCurvePrefab).GetComponent<BezierCurve>();
+		BezierCurve curve = GameObject.Instantiate(curvePrefab).GetComponent<BezierCurve>();
 		
 		int numCurves = curves.Count;
 
@@ -195,7 +205,7 @@ public class Spline : MonoBehaviour
 
 	public void AddRelativePoint(Vector3 end)
 	{
-		BezierCurve curve = GameObject.Instantiate(BezierCurvePrefab).GetComponent<BezierCurve>();
+		BezierCurve curve = GameObject.Instantiate(curvePrefab).GetComponent<BezierCurve>();
 		
 		int numCurves = curves.Count;
 
@@ -219,7 +229,7 @@ public class Spline : MonoBehaviour
 
 	public void AddRelativeSmoothPoint(Vector3 end)
 	{
-		BezierCurve curve = GameObject.Instantiate(BezierCurvePrefab).GetComponent<BezierCurve>();
+		BezierCurve curve = GameObject.Instantiate(curvePrefab).GetComponent<BezierCurve>();
 		
 		int numCurves = curves.Count;
 
@@ -246,7 +256,7 @@ public class Spline : MonoBehaviour
 
 	public void AddRelativePoint(Vector3 control1, Vector3 control2, Vector3 end)
 	{
-		BezierCurve curve = GameObject.Instantiate(BezierCurvePrefab).GetComponent<BezierCurve>();
+		BezierCurve curve = GameObject.Instantiate(curvePrefab).GetComponent<BezierCurve>();
 		
 		int numCurves = curves.Count;
 
@@ -273,7 +283,7 @@ public class Spline : MonoBehaviour
 	// For Smooth Curve command
 	public void AddRelativePoint(Vector3 control2, Vector3 end)
 	{
-		BezierCurve curve = GameObject.Instantiate(BezierCurvePrefab).GetComponent<BezierCurve>();
+		BezierCurve curve = GameObject.Instantiate(curvePrefab).GetComponent<BezierCurve>();
 		
 		int numCurves = curves.Count;
 
@@ -322,7 +332,7 @@ public class Spline : MonoBehaviour
 			return;
 		}
 
-		BezierCurve curve = GameObject.Instantiate(BezierCurvePrefab).GetComponent<BezierCurve>();
+		BezierCurve curve = GameObject.Instantiate(curvePrefab).GetComponent<BezierCurve>();
 		
 		BezierCurve startCurve = curves[0];
 		BezierCurve endCurve = curves[curves.Count - 1];

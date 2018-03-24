@@ -6,16 +6,20 @@ using UnityEditor;
 [CustomEditor(typeof(ControlPoint))]
 public class ControlPointEditor : Editor 
 {
-	//ControlPoint ControlPoint;
+	private SerializedProperty _type;
+	
+	ControlPoint controlPoint;
 
 	public void OnEnable()
 	{
-		//ControlPoint = (ControlPoint)target;
+		SerializedObject cp = new SerializedObject(target);
+		
+		_type = cp.FindProperty("Type");
 	}
 
 	public override void OnInspectorGUI()
 	{
-		DrawDefaultInspector();
+		EditorGUILayout.PropertyField(_type);
 	}
 
 	void OnDisable()

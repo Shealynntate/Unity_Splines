@@ -11,13 +11,26 @@ public class GuideLine : MonoBehaviour
 	[SerializeField]
 	Vector3 end;
 
-	BezierCurve parent;
-	bool isSelected;
+	[SerializeField]
+	private BezierCurve _parent;
 
-	void SetParent()
+	BezierCurve parent
 	{
-		parent = transform.parent.parent.GetComponent<BezierCurve>();
+		get
+		{
+			if (_parent == null)
+				_parent = transform.parent.parent.GetComponent<BezierCurve>();
+			
+			return _parent; 
+		}
+
+		set
+		{
+			_parent = value;
+		}
 	}
+
+	bool isSelected;
 
 	public void SetPositions(Vector3 s, Vector3 e)
 	{
@@ -42,9 +55,6 @@ public class GuideLine : MonoBehaviour
 
 	void OnDrawGizmosSelected()
 	{
-		if (parent == null)
-			SetParent();
-
 		// Only send message if GuideLine was selected directly, not as part of the heirarchy
 		if (Selection.objects.Length == 1 && (Selection.objects[0] as GameObject) == gameObject)
 		{

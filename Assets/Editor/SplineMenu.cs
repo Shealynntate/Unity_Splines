@@ -11,22 +11,15 @@ public class SplineMenu : EditorWindow
     bool toggleSVG;
 
     [SerializeField]
-    GameObject _splinePrefab;
+    private GameObject _splinePrefab;
     GameObject splinePrefab
     {
         get
         {
             if (_splinePrefab == null)
-            {
                 _splinePrefab = (GameObject)Resources.Load("Prefabs/Spline", typeof(GameObject));
-            }
 
             return _splinePrefab;
-        }
-
-        set
-        {
-            _splinePrefab = value;
         }
     }
      
@@ -38,16 +31,6 @@ public class SplineMenu : EditorWindow
     {
         SplineMenu window = GetWindow<SplineMenu>();
         window.titleContent.text = "Spline Editor";
-        SceneView.onSceneGUIDelegate += OnScene;
-    }
-    
-    private static void OnScene(SceneView sceneView)
-    {
-        // Check to see if spline editing gizmos have been clicked
-        if (Event.current.type == EventType.mouseDown)
-        {
-            //spline.RaycastGizmos();
-        }
     }
 
     void OnGUI() 
@@ -86,10 +69,5 @@ public class SplineMenu : EditorWindow
         }
 
         EditorGUILayout.EndVertical();
-    }
-
-    public void OnDestroy()
-    {
-        SceneView.onSceneGUIDelegate -= OnScene;
     }
 }

@@ -11,7 +11,7 @@ public static class SVGHandler
 	// SVG state variables
 	static int widthSVG = -1;
 	static int heightSVG = -1;
-	static Vector3 scaleSVG = new Vector2(1, 1);
+	static Vector2 scaleSVG = new Vector2(1, 1);
 
 	public static void ConvertToSplines(string filePath)
 	{
@@ -25,6 +25,7 @@ public static class SVGHandler
 		// Reset state for next SVG path.
 		widthSVG = -1;
 		heightSVG = -1;
+		scaleSVG = new Vector2(1, 1);
 	}
 
 	static SplineGenerator CreateSpline()

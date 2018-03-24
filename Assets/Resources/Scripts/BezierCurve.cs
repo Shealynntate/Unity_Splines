@@ -210,9 +210,6 @@ public class BezierCurve : MonoBehaviour
 		{
 			GuideLine line = guideLines[i];
 			line.SetPositions(GetPoint(step * i), GetPoint(step * (i + 1)));
-			//renderer.startWidth = 0.05f;
-			//renderer.SetPosition(0, GetPoint(step * i));
-			//renderer.SetPosition(1, GetPoint(step * (i + 1)));
 		}
 	}
 
@@ -271,7 +268,7 @@ public class BezierCurve : MonoBehaviour
 	public SplineData GetData(float d)
 	{
 		float alpha = d / curveLength;
-		
+
 		SplineData data = new SplineData();
 		data.Position = GetPoint(alpha);
 		data.Tangent = GetTangent(alpha);
